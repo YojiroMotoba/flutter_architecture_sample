@@ -13,7 +13,6 @@ class MainTabPage extends StatefulWidget {
 }
 
 class _MainTabPageState extends State<MainTabPage> {
-
   MainTabModel _model;
   PageController _pageController;
 
@@ -41,8 +40,8 @@ class _MainTabPageState extends State<MainTabPage> {
           controller: _pageController,
           onPageChanged: onPageChanged,
           children: [
-            HomePage(),
             RepositoryListPage(),
+            HomePage(),
           ],
         ),
       ),
@@ -60,6 +59,16 @@ class _MainTabPageState extends State<MainTabPage> {
       title: Text(
         'サンプルアプリ',
       ),
+      centerTitle: true,
+      actions: <Widget>[
+        IconButton(
+          icon: Icon(
+            Icons.create,
+            color: ConstColors.black,
+          ),
+          onPressed: () => setState(() {}),
+        ),
+      ],
     );
   }
 
