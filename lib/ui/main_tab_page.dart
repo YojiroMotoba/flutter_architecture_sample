@@ -13,7 +13,6 @@ class MainTabPage extends StatefulWidget {
 }
 
 class _MainTabPageState extends State<MainTabPage> {
-  static const _pageDuration = Duration(milliseconds: 300);
 
   MainTabModel _model;
   PageController _pageController;
