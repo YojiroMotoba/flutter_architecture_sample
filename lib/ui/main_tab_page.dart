@@ -4,7 +4,7 @@ import 'package:flutterarchitecturesample/constant/const_colors.dart';
 import 'package:flutterarchitecturesample/constant/const_size.dart';
 import 'package:flutterarchitecturesample/model/home_page_model.dart';
 import 'package:flutterarchitecturesample/ui/home_page.dart';
-import 'package:flutterarchitecturesample/ui/search_page.dart';
+import 'package:flutterarchitecturesample/ui/repository_list_page.dart';
 import 'package:provider/provider.dart';
 
 class MainTabPage extends StatefulWidget {
@@ -42,7 +42,7 @@ class _MainTabPageState extends State<MainTabPage> {
           onPageChanged: onPageChanged,
           children: [
             HomePage(),
-            SearchPage(),
+            RepositoryListPage(),
           ],
         ),
       ),
