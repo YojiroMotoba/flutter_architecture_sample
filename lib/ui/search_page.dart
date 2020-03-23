@@ -1,28 +1,28 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatefulWidget {
+class SearchPage extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _HomePageState();
+  State<StatefulWidget> createState() => _SearchPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _SearchPageState extends State<SearchPage> {
   @override
   void initState() {
     super.initState();
-    debugPrint("_HomePageState initState");
+    debugPrint("_SearchPageState initState");
   }
 
   @override
   void dispose() {
-    debugPrint("_HomePageState dispose");
+    debugPrint("_SearchPageState dispose");
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      'HomePageBody',
+      'SearchPageBody',
     );
   }
 }
