@@ -2,14 +2,26 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterarchitecturesample/constant/const_colors.dart';
 import 'package:flutterarchitecturesample/constant/const_size.dart';
+import 'package:flutterarchitecturesample/model/home_page_model.dart';
+import 'package:provider/provider.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final _model = HomePageModel();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _appBar(),
-      body: Text(
-        'HomePageBody',
+      body: ChangeNotifierProvider<HomePageModel>.value(
+        value: _model,
+        child: Text(
+          'HomePageBody',
+        ),
       ),
       bottomNavigationBar: _bottomNavigationBar(),
     );
@@ -61,5 +73,11 @@ class HomePage extends StatelessWidget {
       icon: icon,
       onPressed: onPressed,
     );
+  }
+
+  @override
+  void dispose() {
+    _model.dispose();
+    super.dispose();
   }
 }
