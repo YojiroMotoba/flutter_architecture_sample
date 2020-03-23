@@ -117,18 +117,11 @@ class _MainTabPageState extends State<MainTabPage> {
     showDialog<void>(
       context: context,
       builder: (context) {
-        return CupertinoAlertDialog(
-          title: Text("タイトル"),
-          content: Text("メッセージ"),
-          actions: <Widget>[
-            CupertinoDialogAction(
-              child: Text("Delete"),
-              isDestructiveAction: true,
-              onPressed: () => Navigator.pop(context),
-            ),
-            CupertinoDialogAction(
-              child: Text("OK"),
-              onPressed: () => Navigator.pop(context),
+        return SimpleDialog(
+          title: Text('タイトル'),
+          children: <Widget>[
+            TextField(
+              maxLines: 1,
             ),
           ],
         );
