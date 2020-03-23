@@ -66,7 +66,7 @@ class _MainTabPageState extends State<MainTabPage> {
             Icons.create,
             color: ConstColors.black,
           ),
-          onPressed: () => setState(() {}),
+          onPressed: () => _showSearchTextDialog(context),
         ),
       ],
     );
@@ -110,6 +110,29 @@ class _MainTabPageState extends State<MainTabPage> {
       iconSize: ConstSizes.bottomAppBarIcon,
       icon: icon,
       onPressed: onPressed,
+    );
+  }
+
+  void _showSearchTextDialog(BuildContext context) {
+    showDialog<void>(
+      context: context,
+      builder: (context) {
+        return CupertinoAlertDialog(
+          title: Text("タイトル"),
+          content: Text("メッセージ"),
+          actions: <Widget>[
+            CupertinoDialogAction(
+              child: Text("Delete"),
+              isDestructiveAction: true,
+              onPressed: () => Navigator.pop(context),
+            ),
+            CupertinoDialogAction(
+              child: Text("OK"),
+              onPressed: () => Navigator.pop(context),
+            ),
+          ],
+        );
+      },
     );
   }
 }
