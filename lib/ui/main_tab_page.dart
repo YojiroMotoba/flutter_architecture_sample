@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterarchitecturesample/constant/const_colors.dart';
 import 'package:flutterarchitecturesample/constant/const_size.dart';
 import 'package:flutterarchitecturesample/ext/sized_box_ext.dart';
+import 'package:flutterarchitecturesample/ext/text_field_ext.dart';
 import 'package:flutterarchitecturesample/model/home_page_model.dart';
 import 'package:flutterarchitecturesample/ui/home_page.dart';
 import 'package:flutterarchitecturesample/ui/repository_list_page.dart';
@@ -121,6 +122,15 @@ class _MainTabPageState extends State<MainTabPage> {
         fontWeight: FontWeight.bold,
       ),
     );
+
+    const searchWordTextField = TextField(
+      maxLines: 1,
+      decoration: InputDecoration(
+        enabledBorder: TextFieldExt.defaultUnderlineInputBorder,
+        focusedBorder: TextFieldExt.defaultUnderlineInputBorder,
+      ),
+    );
+
     showDialog<void>(
       context: context,
       builder: (context) {
@@ -132,8 +142,11 @@ class _MainTabPageState extends State<MainTabPage> {
             Column(children: [
               SizedBoxExt.heightMarginM,
               dialogTitleText,
-              TextField(
-                maxLines: 1,
+              Padding(
+                padding: EdgeInsets.all(
+                  ConstSizes.marginM,
+                ),
+                child: searchWordTextField,
               ),
             ]),
           ],
