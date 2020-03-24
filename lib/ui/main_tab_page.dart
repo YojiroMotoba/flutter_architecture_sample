@@ -65,10 +65,17 @@ class _MainTabPageState extends State<MainTabPage> {
       actions: <Widget>[
         IconButton(
           icon: ConstIcons.create,
-          onPressed: () => showSearchTextDialog(context),
+          onPressed: () => showSearchTextDialog(
+            context,
+            _onPressedSearchButton,
+          ),
         ),
       ],
     );
+  }
+
+  void _onPressedSearchButton() {
+
   }
 
   BottomAppBar _bottomNavigationBar() {
@@ -111,5 +118,4 @@ class _MainTabPageState extends State<MainTabPage> {
       onPressed: onPressed,
     );
   }
-
 }

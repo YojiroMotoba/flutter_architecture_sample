@@ -26,14 +26,15 @@ const _dialogRoundedRectangleBorder = RoundedRectangleBorder(
   ),
 );
 
-var _searchButton = RaisedButton(
-  child: Text('Button'),
-  color: Colors.orange,
-  textColor: Colors.white,
-  onPressed: () {},
-);
+RaisedButton _searchButton(VoidCallback onPressed) => RaisedButton(
+      child: Text('Button'),
+      color: Colors.orange,
+      textColor: Colors.white,
+      onPressed: () {},
+    );
 
-void showSearchTextDialog(BuildContext context) {
+void showSearchTextDialog(
+    BuildContext context, VoidCallback onPressedSearchButton) {
   showDialog<void>(
     context: context,
     builder: (context) {
@@ -52,7 +53,7 @@ void showSearchTextDialog(BuildContext context) {
               ),
               child: _searchWordTextField,
             ),
-            _searchButton,
+            _searchButton(onPressedSearchButton),
           ]),
         ],
       );
