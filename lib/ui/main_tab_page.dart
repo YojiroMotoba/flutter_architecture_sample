@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutterarchitecturesample/constant/const_colors.dart';
 import 'package:flutterarchitecturesample/constant/const_icon.dart';
 import 'package:flutterarchitecturesample/constant/const_size.dart';
-import 'package:flutterarchitecturesample/ext/sized_box_ext.dart';
-import 'package:flutterarchitecturesample/ext/text_field_ext.dart';
 import 'package:flutterarchitecturesample/model/home_page_model.dart';
 import 'package:flutterarchitecturesample/ui/home_page.dart';
 import 'package:flutterarchitecturesample/ui/repository_list_page.dart';
+import 'package:flutterarchitecturesample/ui/search_word_dialog.dart';
 import 'package:provider/provider.dart';
 
 class MainTabPage extends StatefulWidget {
@@ -66,7 +65,7 @@ class _MainTabPageState extends State<MainTabPage> {
       actions: <Widget>[
         IconButton(
           icon: ConstIcons.create,
-          onPressed: () => _showSearchTextDialog(context),
+          onPressed: () => showSearchTextDialog(context),
         ),
       ],
     );
@@ -113,45 +112,4 @@ class _MainTabPageState extends State<MainTabPage> {
     );
   }
 
-  void _showSearchTextDialog(BuildContext context) {
-    const dialogTitleText = Text(
-      '検索ワード',
-      style: TextStyle(
-        fontWeight: FontWeight.bold,
-      ),
-    );
-
-    var searchWordTextField = TextField(
-      maxLines: 1,
-      textAlignVertical: TextAlignVertical.center,
-      decoration: InputDecoration(
-        enabledBorder: TextFieldExt.enabledUnderlineInputBorder,
-        focusedBorder: TextFieldExt.focusedUnderlineInputBorder,
-        contentPadding: EdgeInsets.all(0.0),
-      ),
-    );
-
-    showDialog<void>(
-      context: context,
-      builder: (context) {
-        return SimpleDialog(
-          contentPadding: const EdgeInsets.all(
-            0.0,
-          ),
-          children: <Widget>[
-            Column(children: [
-              SizedBoxExt.heightMarginM,
-              dialogTitleText,
-              Padding(
-                padding: EdgeInsets.all(
-                  ConstSizes.marginM,
-                ),
-                child: searchWordTextField,
-              ),
-            ]),
-          ],
-        );
-      },
-    );
-  }
 }

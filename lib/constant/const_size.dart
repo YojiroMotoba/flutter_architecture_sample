@@ -8,4 +8,7 @@ class ConstSizes {
   static const double marginM = 8;
   static const double marginL = 16;
   static const double marginXL = 32;
+
+  // radius
+  static const double dialogRadius = 8;
 }
