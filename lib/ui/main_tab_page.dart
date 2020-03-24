@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterarchitecturesample/constant/const_colors.dart';
 import 'package:flutterarchitecturesample/constant/const_size.dart';
+import 'package:flutterarchitecturesample/ext/sized_box_ext.dart';
 import 'package:flutterarchitecturesample/model/home_page_model.dart';
 import 'package:flutterarchitecturesample/ui/home_page.dart';
 import 'package:flutterarchitecturesample/ui/repository_list_page.dart';
@@ -114,15 +115,27 @@ class _MainTabPageState extends State<MainTabPage> {
   }
 
   void _showSearchTextDialog(BuildContext context) {
+    const dialogTitleText = Text(
+      '検索ワード',
+      style: TextStyle(
+        fontWeight: FontWeight.bold,
+      ),
+    );
     showDialog<void>(
       context: context,
       builder: (context) {
         return SimpleDialog(
-          title: Text('タイトル'),
+          contentPadding: const EdgeInsets.all(
+            0.0,
+          ),
           children: <Widget>[
-            TextField(
-              maxLines: 1,
-            ),
+            Column(children: [
+              SizedBoxExt.heightMarginM,
+              dialogTitleText,
+              TextField(
+                maxLines: 1,
+              ),
+            ]),
           ],
         );
       },
