@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterarchitecturesample/constant/const_colors.dart';
+import 'package:flutterarchitecturesample/constant/const_icon.dart';
 import 'package:flutterarchitecturesample/constant/const_size.dart';
 import 'package:flutterarchitecturesample/ext/sized_box_ext.dart';
 import 'package:flutterarchitecturesample/ext/text_field_ext.dart';
@@ -64,10 +65,7 @@ class _MainTabPageState extends State<MainTabPage> {
       centerTitle: true,
       actions: <Widget>[
         IconButton(
-          icon: Icon(
-            Icons.create,
-            color: ConstColors.black,
-          ),
+          icon: ConstIcons.create,
           onPressed: () => _showSearchTextDialog(context),
         ),
       ],
@@ -76,7 +74,7 @@ class _MainTabPageState extends State<MainTabPage> {
 
   BottomAppBar _bottomNavigationBar() {
     return BottomAppBar(
-      shape: CircularNotchedRectangle(),
+      shape: const CircularNotchedRectangle(),
       child: Container(
         height: ConstSizes.bottomAppBarHeight,
         child: _bottomAppBarRow(),
@@ -89,18 +87,18 @@ class _MainTabPageState extends State<MainTabPage> {
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
-        _bottomAppBarIcon(Icon(Icons.home), () {
+        _bottomAppBarIcon(ConstIcons.home, () {
           debugPrint('press bar icon home');
           _pageController.jumpToPage(0);
         }),
-        _bottomAppBarIcon(Icon(Icons.search), () {
+        _bottomAppBarIcon(ConstIcons.search, () {
           debugPrint('press bar icon search');
           _pageController.jumpToPage(1);
         }),
-        _bottomAppBarIcon(Icon(Icons.notifications), () {
+        _bottomAppBarIcon(ConstIcons.notifications, () {
           debugPrint('press bar icon notifications');
         }),
-        _bottomAppBarIcon(Icon(Icons.list), () {
+        _bottomAppBarIcon(ConstIcons.list, () {
           debugPrint('press bar icon list');
         }),
       ],
@@ -123,12 +121,12 @@ class _MainTabPageState extends State<MainTabPage> {
       ),
     );
 
-    const searchWordTextField = TextField(
+    var searchWordTextField = TextField(
       maxLines: 1,
       textAlignVertical: TextAlignVertical.center,
       decoration: InputDecoration(
-        enabledBorder: TextFieldExt.defaultUnderlineInputBorder,
-        focusedBorder: TextFieldExt.defaultUnderlineInputBorder,
+        enabledBorder: TextFieldExt.enabledUnderlineInputBorder,
+        focusedBorder: TextFieldExt.focusedUnderlineInputBorder,
         contentPadding: EdgeInsets.all(0.0),
       ),
     );
