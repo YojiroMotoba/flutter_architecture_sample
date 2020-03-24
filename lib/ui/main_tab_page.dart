@@ -125,9 +125,11 @@ class _MainTabPageState extends State<MainTabPage> {
 
     const searchWordTextField = TextField(
       maxLines: 1,
+      textAlignVertical: TextAlignVertical.center,
       decoration: InputDecoration(
         enabledBorder: TextFieldExt.defaultUnderlineInputBorder,
         focusedBorder: TextFieldExt.defaultUnderlineInputBorder,
+        contentPadding: EdgeInsets.all(0.0),
       ),
     );
 
