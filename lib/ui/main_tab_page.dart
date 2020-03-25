@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutterarchitecturesample/constant/const_colors.dart';
 import 'package:flutterarchitecturesample/constant/const_icon.dart';
 import 'package:flutterarchitecturesample/constant/const_size.dart';
+import 'package:flutterarchitecturesample/event/event.dart';
+import 'package:flutterarchitecturesample/event/repository_search_event.dart';
 import 'package:flutterarchitecturesample/model/home_page_model.dart';
 import 'package:flutterarchitecturesample/ui/home_page.dart';
 import 'package:flutterarchitecturesample/ui/repository_list_page.dart';
@@ -65,7 +67,7 @@ class _MainTabPageState extends State<MainTabPage> {
       actions: <Widget>[
         IconButton(
           icon: ConstIcons.create,
-          onPressed: () => showSearchTextDialog(
+          onPressed: () => SearchWordDialog().show(
             context,
             _onPressedSearchButton,
           ),
@@ -74,8 +76,12 @@ class _MainTabPageState extends State<MainTabPage> {
     );
   }
 
-  void _onPressedSearchButton() {
-
+  void _onPressedSearchButton(String searchWord) {
+    eventBus.fire(
+      RepositorySearchEvent(
+        RepositorySearchEventData()..searchWord = searchWord,
+      ),
+    );
   }
 
   BottomAppBar _bottomNavigationBar() {

@@ -1,5 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterarchitecturesample/event/event.dart';
+import 'package:flutterarchitecturesample/event/repository_search_event.dart';
 
 class RepositoryListPage extends StatefulWidget {
   @override
@@ -8,15 +12,21 @@ class RepositoryListPage extends StatefulWidget {
 
 class _RepositoryListPageState extends State<RepositoryListPage>
     with AutomaticKeepAliveClientMixin<RepositoryListPage> {
+  StreamSubscription _searchSubscription;
+
   @override
   void initState() {
     super.initState();
     debugPrint('_RepositoryListPageState initState');
+    _searchSubscription = eventBus.on<RepositorySearchEvent>().listen((event) {
+      debugPrint(event.data.searchWord);
+    });
   }
 
   @override
   void dispose() {
     debugPrint('_RepositoryListPageState dispose');
+    _searchSubscription.cancel();
     super.dispose();
   }
 

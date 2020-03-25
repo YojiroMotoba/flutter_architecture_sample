@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutterarchitecturesample/constant/const_colors.dart';
 
-extension TextFieldExt on TextField {
+extension TextFormFieldExt on TextFormField {
   static final UnderlineInputBorder enabledUnderlineInputBorder =
-      UnderlineInputBorder(
+  UnderlineInputBorder(
     borderSide: BorderSide(
       color: ConstColors.grey.shade600,
     ),
   );
 
   static final UnderlineInputBorder focusedUnderlineInputBorder =
-      UnderlineInputBorder(
+  UnderlineInputBorder(
     borderSide: BorderSide(
       color: ConstColors.grey.shade900,
     ),
+  );
+
+  static final InputDecoration simpleInputDecoration = InputDecoration(
+    enabledBorder: TextFormFieldExt.enabledUnderlineInputBorder,
+    focusedBorder: TextFormFieldExt.focusedUnderlineInputBorder,
+    contentPadding: EdgeInsets.all(0.0),
   );
 }
