@@ -7,20 +7,23 @@ import 'package:provider/provider.dart';
 class SearchWordDialog {
   void show(BuildContext context, void Function(String) onPressedSearchButton) {
     showDialog<void>(
-        context: context,
-        builder: (context) => Provider<SearchWordDialogModel>(
-              create: (_) => SearchWordDialogModel(),
-              dispose: (_, model) => model.dispose(),
-              child: SimpleDialog(
-                shape: _dialogRoundedRectangleBorder,
-                contentPadding: EdgeInsets.all(
-                  0.0,
-                ),
-                children: <Widget>[
-                  _dialogContents(onPressedSearchButton),
-                ],
-              ),
-            ));
+      context: context,
+      builder: (context) => Provider<SearchWordDialogModel>(
+        create: (_) => SearchWordDialogModel(),
+        dispose: (_, model) => model.dispose(),
+        child: SimpleDialog(
+          shape: _dialogRoundedRectangleBorder,
+          contentPadding: EdgeInsets.all(
+            0.0,
+          ),
+          children: <Widget>[
+            _dialogContents(
+              onPressedSearchButton,
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   Widget _dialogContents(void Function(String) onPressedSearchButton) =>
@@ -49,14 +52,18 @@ class SearchWordDialog {
 
   final _dialogRoundedRectangleBorder = RoundedRectangleBorder(
     borderRadius: BorderRadius.all(
-      Radius.circular(ConstSizes.dialogRadius),
+      Radius.circular(
+        ConstSizes.dialogRadius,
+      ),
     ),
   );
 
   RaisedButton _searchButton(
           TextFormField textFormField, void Function(String) onPressed) =>
       RaisedButton(
-        child: Text('Button'),
+        child: Text(
+          'Button',
+        ),
         color: Colors.orange,
         textColor: Colors.white,
         onPressed: () {

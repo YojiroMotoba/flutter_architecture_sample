@@ -8,6 +8,7 @@ import 'package:flutterarchitecturesample/event/repository_search_event.dart';
 import 'package:flutterarchitecturesample/model/home_page_model.dart';
 import 'package:flutterarchitecturesample/ui/dialog/search_word_dialog.dart';
 import 'package:flutterarchitecturesample/ui/home_page.dart';
+import 'package:flutterarchitecturesample/ui/notifications_page.dart';
 import 'package:flutterarchitecturesample/ui/repository_list_page.dart';
 import 'package:provider/provider.dart';
 
@@ -46,6 +47,7 @@ class _MainTabPageState extends State<MainTabPage> {
           children: [
             RepositoryListPage(),
             HomePage(),
+            NotificationsPage(),
           ],
         ),
       ),
@@ -82,6 +84,7 @@ class _MainTabPageState extends State<MainTabPage> {
         RepositorySearchEventData()..searchWord = searchWord,
       ),
     );
+    debugPrint('$searchWord fired!!!!!!!');
   }
 
   BottomAppBar _bottomNavigationBar() {
@@ -109,6 +112,7 @@ class _MainTabPageState extends State<MainTabPage> {
         }),
         _bottomAppBarIcon(ConstIcons.notifications, () {
           debugPrint('press bar icon notifications');
+          _pageController.jumpToPage(2);
         }),
         _bottomAppBarIcon(ConstIcons.list, () {
           debugPrint('press bar icon list');

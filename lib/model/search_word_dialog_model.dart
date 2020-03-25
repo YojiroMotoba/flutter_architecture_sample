@@ -6,6 +6,6 @@ class SearchWordDialogModel {
 
   void dispose() {
     textFormField.controller.dispose();
-    debugPrint('SearchWordDialogModel is disposed');
+    debugPrint('$this is disposed');
   }
 }
