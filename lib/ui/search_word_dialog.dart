@@ -11,10 +11,9 @@ class SearchWordDialog {
   );
 
   final _searchWordTextFormField = TextFormField(
-    maxLines: 1,
+    maxLines: 2,
     textAlignVertical: TextAlignVertical.center,
     controller: TextEditingController(),
-    maxLength: 40,
   );
 
   final _dialogRoundedRectangleBorder = RoundedRectangleBorder(
