@@ -22,7 +22,7 @@ class _RepositoryListPageState extends State<RepositoryListPage>
     super.initState();
     debugPrint('_RepositoryListPageState initState');
     _searchSubscription = eventBus.on<RepositorySearchEvent>().listen((event) {
-      debugPrint(event.data.searchWord);
+      debugPrint('search event received!!! ${event.data.searchWord}');
     });
   }
 

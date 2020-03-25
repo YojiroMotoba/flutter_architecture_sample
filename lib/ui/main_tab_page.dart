@@ -6,9 +6,9 @@ import 'package:flutterarchitecturesample/constant/const_size.dart';
 import 'package:flutterarchitecturesample/event/event.dart';
 import 'package:flutterarchitecturesample/event/repository_search_event.dart';
 import 'package:flutterarchitecturesample/model/home_page_model.dart';
+import 'package:flutterarchitecturesample/ui/dialog/search_word_dialog.dart';
 import 'package:flutterarchitecturesample/ui/home_page.dart';
 import 'package:flutterarchitecturesample/ui/repository_list_page.dart';
-import 'package:flutterarchitecturesample/ui/search_word_dialog.dart';
 import 'package:provider/provider.dart';
 
 class MainTabPage extends StatefulWidget {
