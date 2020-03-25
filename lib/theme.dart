@@ -1,9 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutterarchitecturesample/constant/const_colors.dart';
 
 class MyAppTheme {
   static ThemeData themeData() => ThemeData.light().copyWith(
         primaryTextTheme: _blackMountainView,
+        inputDecorationTheme: InputDecorationTheme(
+          enabledBorder: enabledUnderlineInputBorder,
+          focusedBorder: focusedUnderlineInputBorder,
+          contentPadding: EdgeInsets.all(0.0),
+        ),
       );
+
+  static final UnderlineInputBorder enabledUnderlineInputBorder =
+      UnderlineInputBorder(
+    borderSide: BorderSide(
+      color: ConstColors.grey.shade600,
+    ),
+  );
+
+  static final UnderlineInputBorder focusedUnderlineInputBorder =
+      UnderlineInputBorder(
+    borderSide: BorderSide(
+      color: ConstColors.grey.shade900,
+    ),
+  );
 
   static const _fontFamily = 'Roboto';
   static const TextTheme _blackMountainView = TextTheme(

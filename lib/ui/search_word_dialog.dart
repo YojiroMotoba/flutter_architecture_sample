@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterarchitecturesample/constant/const_size.dart';
 import 'package:flutterarchitecturesample/ext/sized_box_ext.dart';
-import 'package:flutterarchitecturesample/ext/text_field_ext.dart';
 
 class SearchWordDialog {
   final _dialogTitleText = Text(
@@ -16,7 +15,6 @@ class SearchWordDialog {
     textAlignVertical: TextAlignVertical.center,
     controller: TextEditingController(),
     maxLength: 40,
-    decoration: (TextFormFieldExt.simpleInputDecoration),
   );
 
   final _dialogRoundedRectangleBorder = RoundedRectangleBorder(

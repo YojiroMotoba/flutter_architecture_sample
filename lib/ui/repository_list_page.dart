@@ -15,6 +15,9 @@ class _RepositoryListPageState extends State<RepositoryListPage>
   StreamSubscription _searchSubscription;
 
   @override
+  bool get wantKeepAlive => true;
+
+  @override
   void initState() {
     super.initState();
     debugPrint('_RepositoryListPageState initState');
@@ -24,10 +27,9 @@ class _RepositoryListPageState extends State<RepositoryListPage>
   }
 
   @override
-  void dispose() {
-    debugPrint('_RepositoryListPageState dispose');
-    _searchSubscription.cancel();
-    super.dispose();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    debugPrint('didChangeDependencies');
   }
 
   @override
@@ -39,5 +41,9 @@ class _RepositoryListPageState extends State<RepositoryListPage>
   }
 
   @override
-  bool get wantKeepAlive => true;
+  void dispose() {
+    debugPrint('_RepositoryListPageState dispose');
+    _searchSubscription.cancel();
+    super.dispose();
+  }
 }
