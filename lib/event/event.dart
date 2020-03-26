@@ -1,5 +1,9 @@
 import 'package:event_bus/event_bus.dart';
 
-EventBus _eventBus;
+class EventBusExt extends EventBus {
+  static final EventBusExt _instance = EventBusExt._internal();
 
-EventBus get eventBus => _eventBus ??= EventBus();
+  factory EventBusExt() => _instance;
+
+  EventBusExt._internal();
+}

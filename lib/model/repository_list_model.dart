@@ -8,7 +8,8 @@ class RepositoryListModel extends ChangeNotifier {
   StreamSubscription _searchSubscription;
 
   RepositoryListModel() {
-    _searchSubscription = eventBus.on<RepositorySearchEvent>().listen((event) {
+    _searchSubscription =
+        EventBusExt().on<RepositorySearchEvent>().listen((event) {
       _searchWord = event.data.searchWord;
       search();
     });

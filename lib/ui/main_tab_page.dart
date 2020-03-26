@@ -79,7 +79,7 @@ class _MainTabPageState extends State<MainTabPage> {
   }
 
   void _onPressedSearchButton(String searchWord) {
-    eventBus.fire(
+    EventBusExt().fire(
       RepositorySearchEvent(
         RepositorySearchEventData()..searchWord = searchWord,
       ),
