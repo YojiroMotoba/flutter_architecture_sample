@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutterarchitecturesample/constant/const_colors.dart';
 
 class ConstIcons {
+  ConstIcons._();
+
   static final home = Icon(
     Icons.home,
     color: ConstColors.black,

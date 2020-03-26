@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutterarchitecturesample/constant/const_colors.dart';
 
 class MyAppTheme {
+  MyAppTheme._();
+
   static ThemeData themeData() => ThemeData.light().copyWith(
         primaryTextTheme: _blackMountainView,
         inputDecorationTheme: InputDecorationTheme(

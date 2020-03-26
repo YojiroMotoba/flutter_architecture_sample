@@ -1,0 +1,3 @@
+class ConstUrl {
+  ConstUrl._();
+}
