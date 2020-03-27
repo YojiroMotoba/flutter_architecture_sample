@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutterarchitecturesample/event/event.dart';
 import 'package:flutterarchitecturesample/event/repository_search_event.dart';
+import 'package:repository/api/github_api.dart';
 
 class RepositoryListModel extends ChangeNotifier {
   StreamSubscription _searchSubscription;
@@ -25,7 +26,11 @@ class RepositoryListModel extends ChangeNotifier {
   }
 
   void search() {
-    // TODO : リポジトリの検索する
+    GithubApi.searchRepositories(_searchWord).then((value) {
+      debugPrint('value.statusCode=${value.statusCode}');
+    }).catchError((Object error) {
+      debugPrint(error.toString());
+    });
     notifyListeners();
   }
 
