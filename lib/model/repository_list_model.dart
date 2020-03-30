@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterarchitecturesample/event/event.dart';
 import 'package:flutterarchitecturesample/event/repository_search_event.dart';
 import 'package:repository/api/github_api.dart';
+import 'package:repository/api/response/repositories.dart';
 
 class RepositoryListModel extends ChangeNotifier {
   StreamSubscription _searchSubscription;
@@ -26,8 +27,11 @@ class RepositoryListModel extends ChangeNotifier {
   }
 
   void search() {
-    GithubApi.searchRepositories(_searchWord).then((value) {
-      debugPrint('value.statusCode=${value.statusCode}');
+    GithubApi.searchRepositories(_searchWord).then((response) {
+      debugPrint('value.statusCode=${response.statusCode}');
+      debugPrint(response.body);
+      final repositories = Repositories.fromJson(response.body);
+      debugPrint('repositories.total_count=${repositories.total_count}');
     }).catchError((Object error) {
       debugPrint(error.toString());
     });
