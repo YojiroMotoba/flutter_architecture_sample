@@ -38,8 +38,9 @@ class RepositoryListModel extends ChangeNotifier {
           'repositories.items[0].owner.avatar_url=${repositories.items[0].owner.avatar_url}');
     }).catchError((Object error) {
       debugPrint(error.toString());
+    }).whenComplete(() {
+      notifyListeners();
     });
-    notifyListeners();
   }
 
   @override
