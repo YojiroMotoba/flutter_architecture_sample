@@ -15,7 +15,7 @@ class HttpClient extends http.BaseClient {
   }
 
   @override
-  Future<Response> get(dynamic url, {Map<String, String> headers}) async {
+  Future<Response> get(dynamic url, {Map<String, String> headers}) {
     return _client.get(url, headers: headers);
   }
 }
