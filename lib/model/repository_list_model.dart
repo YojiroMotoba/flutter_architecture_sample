@@ -32,6 +32,10 @@ class RepositoryListModel extends ChangeNotifier {
       debugPrint(response.body);
       final repositories = Repositories.fromJson(response.body);
       debugPrint('repositories.total_count=${repositories.total_count}');
+      debugPrint('repositories.items.length=${repositories.items.length}');
+      debugPrint('repositories.items[0]=${repositories.items[0].full_name}');
+      debugPrint(
+          'repositories.items[0].owner.avatar_url=${repositories.items[0].owner.avatar_url}');
     }).catchError((Object error) {
       debugPrint(error.toString());
     });
