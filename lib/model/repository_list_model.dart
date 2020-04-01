@@ -9,6 +9,8 @@ import 'package:repository/api/response/repositories.dart';
 
 class RepositoryListModel extends ChangeNotifier {
   StreamSubscription _searchSubscription;
+  int totalCount = 0;
+  Map<int, ListDataDetail> listDataMap = <int, ListDataDetail>{};
 
   RepositoryListModel() {
     _searchSubscription =
@@ -35,14 +37,24 @@ class RepositoryListModel extends ChangeNotifier {
   }
 
   void _searchOnValue(Response response) {
+    // TODO statusCodeによるハンドリングを共通化する
     debugPrint('value.statusCode=${response.statusCode}');
     debugPrint(response.body);
     final repositories = Repositories.fromJson(response.body);
+    listDataMap ??= <int, ListDataDetail>{};
     debugPrint('repositories.total_count=${repositories.total_count}');
-    debugPrint('repositories.items.length=${repositories.items.length}');
-    debugPrint('repositories.items[0]=${repositories.items[0].full_name}');
-    debugPrint(
-        'repositories.items[0].owner.avatar_url=${repositories.items[0].owner.avatar_url}');
+    totalCount = repositories.total_count;
+    for (var item in repositories.items) {
+      listDataMap.putIfAbsent(
+          item.id, () => _convertResponseToListEntity(item));
+    }
+  }
+
+  ListDataDetail _convertResponseToListEntity(Item item) {
+    return ListDataDetail()
+      ..avatarUrl = item.owner.avatar_url
+      ..fullName = item.full_name
+      ..htmlUrl = item.owner.html_url;
   }
 
   void _searchError(Object error) {
@@ -60,4 +72,10 @@ class RepositoryListModel extends ChangeNotifier {
     debugPrint('$this is disposed');
     super.dispose();
   }
+}
+
+class ListDataDetail {
+  String fullName;
+  String avatarUrl;
+  String htmlUrl;
 }

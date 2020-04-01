@@ -21,10 +21,9 @@ class Repositories {
 
 @JsonSerializable()
 class Item {
-  Item(this.node_id, this.name, this.full_name, this.owner);
+  Item(this.id, this.full_name, this.owner);
 
-  final String node_id;
-  final String name;
+  final int id;
   final String full_name;
   final Owner owner;
 
@@ -37,11 +36,10 @@ class Item {
 
 @JsonSerializable()
 class Owner {
-  Owner(this.login, this.avatar_url, this.url);
+  Owner(this.avatar_url, this.html_url);
 
-  final String login;
   final String avatar_url;
-  final String url;
+  final String html_url;
 
   factory Owner.fromJson(Map<String, dynamic> items) {
     return _$OwnerFromJson(items);

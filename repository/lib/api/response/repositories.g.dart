@@ -24,8 +24,7 @@ Map<String, dynamic> _$RepositoriesToJson(Repositories instance) =>
 
 Item _$ItemFromJson(Map<String, dynamic> json) {
   return Item(
-    json['node_id'] as String,
-    json['name'] as String,
+    json['id'] as int,
     json['full_name'] as String,
     json['owner'] == null
         ? null
@@ -34,22 +33,19 @@ Item _$ItemFromJson(Map<String, dynamic> json) {
 }
 
 Map<String, dynamic> _$ItemToJson(Item instance) => <String, dynamic>{
-      'node_id': instance.node_id,
-      'name': instance.name,
+      'id': instance.id,
       'full_name': instance.full_name,
       'owner': instance.owner,
     };
 
 Owner _$OwnerFromJson(Map<String, dynamic> json) {
   return Owner(
-    json['login'] as String,
     json['avatar_url'] as String,
-    json['url'] as String,
+    json['html_url'] as String,
   );
 }
 
 Map<String, dynamic> _$OwnerToJson(Owner instance) => <String, dynamic>{
-      'login': instance.login,
       'avatar_url': instance.avatar_url,
-      'url': instance.url,
+      'html_url': instance.html_url,
     };
