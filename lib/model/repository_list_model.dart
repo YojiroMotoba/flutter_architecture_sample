@@ -58,6 +58,7 @@ class RepositoryListModel extends ChangeNotifier {
   }
 
   void _searchError(Object error) {
+    debugPrint(error.runtimeType.toString());
     debugPrint(error.toString());
   }
 

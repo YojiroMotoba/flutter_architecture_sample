@@ -64,7 +64,7 @@ class _RepositoryListPageState extends State<RepositoryListPage>
           style: TextStyle(color: Colors.black, fontSize: 18.0),
         ),
         onTap: () {
-          print('onTap called.${listDataDetail.fullName}');
+          debugPrint('onTap called.${listDataDetail.fullName}');
         },
       ),
     );
