@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutterarchitecturesample/constant/const_localized_keys.dart';
 import 'package:flutterarchitecturesample/constant/const_size.dart';
 import 'package:flutterarchitecturesample/ext/sized_box_ext.dart';
+import 'package:flutterarchitecturesample/ext/string_ext.dart';
 import 'package:flutterarchitecturesample/model/search_word_dialog_model.dart';
-import 'package:flutterarchitecturesample/util/intl/localized.dart';
 import 'package:provider/provider.dart';
 
 class SearchWordDialog {
@@ -45,7 +46,7 @@ class SearchWordDialog {
       );
 
   final _dialogTitleText = Text(
-    LocalizedKeys.searchWord.localized(),
+    ConstLocalizedKeys.searchWord.localized(),
     style: TextStyle(
       fontWeight: FontWeight.bold,
     ),
@@ -63,7 +64,7 @@ class SearchWordDialog {
           TextFormField textFormField, void Function(String) onPressed) =>
       RaisedButton(
         child: Text(
-          'Button',
+          ConstLocalizedKeys.search.localized(),
         ),
         color: Colors.orange,
         textColor: Colors.white,

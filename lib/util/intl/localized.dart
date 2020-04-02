@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterarchitecturesample/constant/const_localized_keys.dart';
 
 class Localized {
   Localized(this.locale) {
@@ -16,18 +17,11 @@ class Localized {
 
   static const Map<String, Map<String, String>> _localizedValues = {
     'ja': {
-      LocalizedKeys.searchWord: '検索ワード',
+      ConstLocalizedKeys.searchWord: '検索ワード',
+      ConstLocalizedKeys.search: '検索',
     },
   };
 
   static String get(String localizedKey) =>
       _localizedValues[_languageCode][localizedKey];
-}
-
-class LocalizedKeys {
-  static const searchWord = 'searchWord';
-}
-
-extension StringExt on String {
-  String localized() => Localized.get(this);
 }
