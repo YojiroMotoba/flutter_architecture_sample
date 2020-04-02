@@ -14,7 +14,7 @@ class Localized {
   static Localized of(BuildContext context) =>
       Localizations.of<Localized>(context, Localized);
 
-  static final Map<String, Map<String, String>> _localizedValues = {
+  static const Map<String, Map<String, String>> _localizedValues = {
     'ja': {
       LocalizedKeys.searchWord: '検索ワード',
     },
