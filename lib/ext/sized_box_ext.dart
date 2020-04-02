@@ -5,4 +5,7 @@ extension SizedBoxExt on SizedBox {
   static const SizedBox heightMarginM = SizedBox(
     height: ConstSizes.marginM,
   );
+  static const SizedBox widthMarginL = SizedBox(
+    width: ConstSizes.marginL,
+  );
 }
