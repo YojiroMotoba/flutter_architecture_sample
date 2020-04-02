@@ -84,6 +84,7 @@ class _MainTabPageState extends State<MainTabPage> {
         RepositorySearchEventData()..searchWord = searchWord,
       ),
     );
+    Navigator.pop(context);
     debugPrint('$searchWord fired!!!!!!!');
   }
 
