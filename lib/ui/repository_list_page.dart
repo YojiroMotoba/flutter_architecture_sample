@@ -43,8 +43,8 @@ class _RepositoryListPageState extends State<RepositoryListPage>
   Widget build(BuildContext context) {
     super.build(context);
     debugPrint('$this build!!!!');
-    return ChangeNotifierProvider<RepositoryListModel>(
-      create: (_) => _model,
+    return ChangeNotifierProvider.value(
+      value: _model,
       child: Consumer<RepositoryListModel>(builder: (_, __, ___) => _body()),
     );
   }
