@@ -39,7 +39,7 @@ class RepositoryListModel extends ChangeNotifier {
       return;
     }
     _isLoading = true;
-    GithubApi.searchRepositories(_searchWord, _page)
+    GithubApi().searchRepositories(_searchWord, _page)
         .then((response) => _searchOnValue(response))
         .catchError((Object error) => _searchError(error))
         .whenComplete(() => _searchComplete());
