@@ -10,13 +10,14 @@ import 'package:repository/api/response/repositories.dart';
 class RepositoryListModel extends ChangeNotifier {
   StreamSubscription _searchSubscription;
   int totalCount = 0;
+  int page = 0;
   Map<int, ListDataDetail> listDataMap = <int, ListDataDetail>{};
 
   RepositoryListModel() {
     _searchSubscription =
         EventBusExt().on<RepositorySearchEvent>().listen((event) {
       _searchWord = event.data.searchWord;
-      _search();
+      search();
     });
   }
 
@@ -26,10 +27,10 @@ class RepositoryListModel extends ChangeNotifier {
 
   set searchWord(String searchWord) {
     _searchWord = searchWord;
-    _search();
+    search();
   }
 
-  void _search() {
+  void search() {
     GithubApi.searchRepositories(_searchWord)
         .then((response) => _searchOnValue(response))
         .catchError((Object error) => _searchError(error))
@@ -48,6 +49,7 @@ class RepositoryListModel extends ChangeNotifier {
       listDataMap.putIfAbsent(
           item.id, () => _convertResponseToListEntity(item));
     }
+    page += 1;
   }
 
   ListDataDetail _convertResponseToListEntity(Item item) {

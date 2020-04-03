@@ -16,10 +16,15 @@ class _RepositoryListPageState extends State<RepositoryListPage>
   @override
   bool get wantKeepAlive => true;
 
+  ScrollController _scrollController;
+  RepositoryListModel _model;
+
   @override
   void initState() {
     super.initState();
     debugPrint('$this initState');
+    _model = RepositoryListModel();
+    _initScrollController();
   }
 
   @override
@@ -39,21 +44,34 @@ class _RepositoryListPageState extends State<RepositoryListPage>
     super.build(context);
     debugPrint('$this build!!!!');
     return ChangeNotifierProvider<RepositoryListModel>(
-      create: (_) => RepositoryListModel(),
-      child: Consumer<RepositoryListModel>(builder: (_, model, __) {
-        return ListView.builder(
-          itemBuilder: (BuildContext context, int index) {
-            debugPrint(
-                'index=$index model.listDataMap.length=${model.listDataMap.length}');
-            if (index < model.listDataMap.length) {
-              return _repositoryItem(
-                  model.listDataMap.entries.elementAt(index).value);
-            }
-            return null;
-          },
-        );
-      }),
+      create: (_) => _model,
+      child: Consumer<RepositoryListModel>(builder: (_, model, __) => _body()),
     );
+  }
+
+  Widget _body() {
+    return ListView.builder(
+      itemBuilder: (BuildContext context, int index) {
+        debugPrint(
+            'index=$index model.listDataMap.length=${_model.listDataMap.length}');
+        if (index < _model.listDataMap.length) {
+          return _repositoryItem(
+              _model.listDataMap.entries.elementAt(index).value);
+        }
+        return null;
+      },
+    );
+  }
+
+  void _initScrollController() {
+    _scrollController = ScrollController();
+    _scrollController.addListener(() {
+      final maxScrollExtent = _scrollController.position.maxScrollExtent;
+      final currentPosition = _scrollController.position.pixels;
+      if (maxScrollExtent > 0 && (maxScrollExtent - 20.0) <= currentPosition) {
+        _model.search();
+      }
+    });
   }
 
   Widget _repositoryItem(ListDataDetail listDataDetail) {
