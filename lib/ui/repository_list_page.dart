@@ -45,7 +45,7 @@ class _RepositoryListPageState extends State<RepositoryListPage>
     debugPrint('$this build!!!!');
     return ChangeNotifierProvider<RepositoryListModel>(
       create: (_) => _model,
-      child: Consumer<RepositoryListModel>(builder: (_, model, __) => _body()),
+      child: Consumer<RepositoryListModel>(builder: (_, __, ___) => _body()),
     );
   }
 
