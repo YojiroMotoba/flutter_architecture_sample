@@ -8,10 +8,14 @@ import 'package:repository/api/github_api.dart';
 import 'package:repository/api/response/repositories.dart';
 
 class RepositoryListModel extends ChangeNotifier {
-  StreamSubscription _searchSubscription;
+  // public
   int totalCount = 0;
-  int page = 0;
   Map<int, ListDataDetail> listDataMap = <int, ListDataDetail>{};
+
+  // private
+  StreamSubscription _searchSubscription;
+  int _page = 0;
+  bool _isLoading = false;
 
   RepositoryListModel() {
     _searchSubscription =
@@ -31,7 +35,11 @@ class RepositoryListModel extends ChangeNotifier {
   }
 
   void search() {
-    GithubApi.searchRepositories(_searchWord)
+    if (_isLoading) {
+      return;
+    }
+    _isLoading = true;
+    GithubApi.searchRepositories(_searchWord, _page)
         .then((response) => _searchOnValue(response))
         .catchError((Object error) => _searchError(error))
         .whenComplete(() => _searchComplete());
@@ -49,7 +57,7 @@ class RepositoryListModel extends ChangeNotifier {
       listDataMap.putIfAbsent(
           item.id, () => _convertResponseToListEntity(item));
     }
-    page += 1;
+    _page += 1;
   }
 
   ListDataDetail _convertResponseToListEntity(Item item) {
@@ -67,6 +75,7 @@ class RepositoryListModel extends ChangeNotifier {
   void _searchComplete() {
     debugPrint('_searchComplete');
     notifyListeners();
+    _isLoading = false;
   }
 
   @override

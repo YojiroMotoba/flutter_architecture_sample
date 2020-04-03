@@ -51,6 +51,7 @@ class _RepositoryListPageState extends State<RepositoryListPage>
 
   Widget _body() {
     return ListView.builder(
+      controller: _scrollController,
       itemBuilder: (BuildContext context, int index) {
         debugPrint(
             'index=$index model.listDataMap.length=${_model.listDataMap.length}');

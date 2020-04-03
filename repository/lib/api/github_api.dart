@@ -12,9 +12,10 @@ class GithubApi {
 
   GithubApi._internal();
 
-  static Future<Response> searchRepositories(String query) async {
+  static Future<Response> searchRepositories(String query, int page) async {
     final queryParameters = {
       'q': query,
+      'page': '$page',
     };
     var uri = Uri.https(
         ConstUrl.githubDomain, ConstUrl.searchRepositories, queryParameters);
