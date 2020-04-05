@@ -36,6 +36,7 @@ class _RepositoryListPageState extends State<RepositoryListPage>
   @override
   void dispose() {
     debugPrint('$this dispose');
+    _scrollController.dispose();
     super.dispose();
   }
 
