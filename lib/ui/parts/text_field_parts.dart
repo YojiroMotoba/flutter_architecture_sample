@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-TextFormField singleTextFormField() => TextFormField(
+TextFormField singleTextFormField(TextEditingController textEditingController) => TextFormField(
       maxLines: 1,
       textAlignVertical: TextAlignVertical.center,
-      controller: TextEditingController(),
+      controller: textEditingController,
     );

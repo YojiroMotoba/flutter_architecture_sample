@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutterarchitecturesample/ui/parts/text_field_parts.dart';
+import 'package:flutterarchitecturesample/ext/auto_dispose.dart';
 
-class SearchWordDialogModel {
-  final textFormField = singleTextFormField();
+class SearchWordDialogModel with ChangeNotifier, AutoDispose {
+  final textEditingController = TextEditingController();
 
-  void dispose() {
-    textFormField.controller.dispose();
-    debugPrint('$this is disposed');
+  SearchWordDialogModel() {
+    textEditingController.addDispose(this);
   }
 }

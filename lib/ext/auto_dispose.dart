@@ -17,13 +17,15 @@ mixin AutoDispose on ChangeNotifier {
   @override
   void dispose() {
     debugPrint(
-        'AutoDispose#dispose _changeNotifiers:${_changeNotifiers.length}');
+        '[AutoDispose]_changeNotifiers:${_changeNotifiers.length}');
     debugPrint(
-        'AutoDispose#dispose _streamSubscriptions:${_streamSubscriptions.length}');
+        '[AutoDispose]_streamSubscriptions:${_streamSubscriptions.length}');
     for (final streamSubscription in _streamSubscriptions) {
+      debugPrint('[AutoDispose]cancel [$streamSubscription]');
       streamSubscription?.cancel();
     }
     for (final notifier in _changeNotifiers) {
+      debugPrint('[AutoDispose]dispose [$notifier]');
       notifier?.dispose();
     }
     super.dispose();

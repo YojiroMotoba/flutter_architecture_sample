@@ -4,15 +4,15 @@ import 'package:flutterarchitecturesample/constant/const_size.dart';
 import 'package:flutterarchitecturesample/ext/sized_box_ext.dart';
 import 'package:flutterarchitecturesample/ext/string_ext.dart';
 import 'package:flutterarchitecturesample/model/search_word_dialog_model.dart';
+import 'package:flutterarchitecturesample/ui/parts/text_field_parts.dart';
 import 'package:provider/provider.dart';
 
 class SearchWordDialog {
   void show(BuildContext context, void Function(String) onPressedSearchButton) {
     showDialog<void>(
       context: context,
-      builder: (context) => Provider<SearchWordDialogModel>(
+      builder: (context) => ChangeNotifierProvider<SearchWordDialogModel>(
         create: (_) => SearchWordDialogModel(),
-        dispose: (_, model) => model.dispose(),
         child: SimpleDialog(
           shape: _dialogRoundedRectangleBorder,
           contentPadding: EdgeInsets.all(
@@ -28,22 +28,23 @@ class SearchWordDialog {
     );
   }
 
-  Widget _dialogContents(void Function(String) onPressedSearchButton) =>
-      Consumer<SearchWordDialogModel>(
-        builder: (_, model, __) => Column(
-          children: [
-            SizedBoxExt.heightMarginM,
-            _dialogTitleText,
-            Padding(
-              padding: EdgeInsets.all(
-                ConstSizes.marginM,
-              ),
-              child: model.textFormField,
+  Widget _dialogContents(void Function(String) onPressedSearchButton) {
+    return Consumer<SearchWordDialogModel>(
+      builder: (_, model, __) => Column(
+        children: [
+          SizedBoxExt.heightMarginM,
+          _dialogTitleText,
+          Padding(
+            padding: EdgeInsets.all(
+              ConstSizes.marginM,
             ),
-            _searchButton(model.textFormField, onPressedSearchButton),
-          ],
-        ),
-      );
+            child: singleTextFormField(model.textEditingController),
+          ),
+          _searchButton(model, onPressedSearchButton),
+        ],
+      ),
+    );
+  }
 
   final _dialogTitleText = Text(
     ConstLocalizedKeys.searchWord.localized(),
@@ -61,7 +62,7 @@ class SearchWordDialog {
   );
 
   RaisedButton _searchButton(
-          TextFormField textFormField, void Function(String) onPressed) =>
+          SearchWordDialogModel model, void Function(String) onPressed) =>
       RaisedButton(
         child: Text(
           ConstLocalizedKeys.search.localized(),
@@ -69,7 +70,7 @@ class SearchWordDialog {
         color: Colors.orange,
         textColor: Colors.white,
         onPressed: () {
-          onPressed(textFormField.controller.text);
+          onPressed(model.textEditingController.text);
         },
       );
 }
