@@ -1,8 +1,7 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutterarchitecturesample/event/event.dart';
 import 'package:flutterarchitecturesample/event/repository_search_event.dart';
+import 'package:flutterarchitecturesample/ext/auto_dispose.dart';
 import 'package:http/http.dart';
 import 'package:repository/api/github_api.dart';
 import 'package:repository/api/response/repositories.dart';
@@ -12,26 +11,42 @@ class RepositoryListModel extends ChangeNotifier {
   int totalCount = 0;
   Map<int, ListDataDetail> listDataMap = <int, ListDataDetail>{};
 
+  String get searchWord => _searchWord;
+
   // private
-  StreamSubscription _searchSubscription;
   int _page = 0;
   bool _isLoading = false;
-
-  RepositoryListModel() {
-    _searchSubscription =
-        EventBusExt().on<RepositorySearchEvent>().listen((event) {
-      _searchWord = event.data.searchWord;
-      search();
-    });
-  }
-
+  ScrollController scrollController;
   String _searchWord = '';
-
-  String get searchWord => _searchWord;
 
   set searchWord(String searchWord) {
     _searchWord = searchWord;
     search();
+  }
+
+  RepositoryListModel(AutoDispose autoDispose) {
+    EventBusExt().on<RepositorySearchEvent>().listen((event) {
+      _searchWord = event.data.searchWord;
+      search();
+    }).addDispose(autoDispose);
+
+    scrollController = ScrollController()
+
+      ..addListener(() {
+        final maxScrollExtent = scrollController.position.maxScrollExtent;
+        final currentPosition = scrollController.position.pixels;
+        if (maxScrollExtent > 0 &&
+            (maxScrollExtent - 20.0) <= currentPosition) {
+          search();
+        }
+      })
+      ..addDispose(autoDispose);
+  }
+
+  @override
+  void dispose() {
+    debugPrint('$this is disposed');
+    super.dispose();
   }
 
   void search() {
@@ -39,7 +54,8 @@ class RepositoryListModel extends ChangeNotifier {
       return;
     }
     _isLoading = true;
-    GithubApi().searchRepositories(_searchWord, _page)
+    GithubApi()
+        .searchRepositories(_searchWord, _page)
         .then((response) => _searchOnValue(response))
         .catchError((Object error) => _searchError(error))
         .whenComplete(() => _searchComplete());
@@ -76,13 +92,6 @@ class RepositoryListModel extends ChangeNotifier {
     debugPrint('_searchComplete');
     notifyListeners();
     _isLoading = false;
-  }
-
-  @override
-  void dispose() {
-    _searchSubscription.cancel();
-    debugPrint('$this is disposed');
-    super.dispose();
   }
 }
 

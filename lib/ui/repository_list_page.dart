@@ -17,15 +17,13 @@ class _RepositoryListPageState extends State<RepositoryListPage>
   @override
   bool get wantKeepAlive => true;
 
-  ScrollController _scrollController;
   RepositoryListModel _model;
 
   @override
   void initState() {
     super.initState();
     debugPrint('$this initState');
-    _model = RepositoryListModel();
-    _initScrollController();
+    _model = RepositoryListModel(this)..addDispose(this);
   }
 
   @override
@@ -52,7 +50,7 @@ class _RepositoryListPageState extends State<RepositoryListPage>
 
   Widget _body() {
     return ListView.builder(
-      controller: _scrollController,
+      controller: _model.scrollController,
       itemBuilder: (BuildContext context, int index) {
         debugPrint(
             'index=$index model.listDataMap.length=${_model.listDataMap.length}');
@@ -63,17 +61,6 @@ class _RepositoryListPageState extends State<RepositoryListPage>
         return null;
       },
     );
-  }
-
-  void _initScrollController() {
-    _scrollController = ScrollController()..addDispose(this);
-    _scrollController.addListener(() {
-      final maxScrollExtent = _scrollController.position.maxScrollExtent;
-      final currentPosition = _scrollController.position.pixels;
-      if (maxScrollExtent > 0 && (maxScrollExtent - 20.0) <= currentPosition) {
-        _model.search();
-      }
-    });
   }
 
   Widget _repositoryItem(ListDataDetail listDataDetail) {
