@@ -14,7 +14,7 @@ class RepositoryListPage extends StatefulWidget {
 class _RepositoryListPageState extends State<RepositoryListPage>
     with AutomaticKeepAliveClientMixin<RepositoryListPage> {
   @override
-  bool get wantKeepAlive => false;
+  bool get wantKeepAlive => true;
 
   @override
   Widget build(BuildContext context) {
