@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/widgets.dart';
 
-mixin AutoDispose<T extends StatefulWidget> on State<T> {
+mixin AutoDispose on ChangeNotifier {
   final _changeNotifiers = <ChangeNotifier>[];
   final _streamSubscriptions = <StreamSubscription>[];
 

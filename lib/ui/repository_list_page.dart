@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterarchitecturesample/ext/auto_dispose.dart';
 import 'package:flutterarchitecturesample/ext/sized_box_ext.dart';
 import 'package:flutterarchitecturesample/model/repository_list_model.dart';
 import 'package:provider/provider.dart';
@@ -13,16 +12,16 @@ class RepositoryListPage extends StatefulWidget {
 // NOTE: StatefulWidgetである必要ないけど、AutomaticKeepAliveClientMixinがStatefulWidgetじゃないとなので…
 // StatelessだとwantKeepAliveがtrueと同等の実装が分からず…
 class _RepositoryListPageState extends State<RepositoryListPage>
-    with AutomaticKeepAliveClientMixin<RepositoryListPage>, AutoDispose {
+    with AutomaticKeepAliveClientMixin<RepositoryListPage> {
   @override
-  bool get wantKeepAlive => true;
+  bool get wantKeepAlive => false;
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
     debugPrint('$this build!!!!');
-    return Provider<RepositoryListModel>(
-      create: (_) => RepositoryListModel(this)..addDispose(this),
+    return ChangeNotifierProvider<RepositoryListModel>(
+      create: (_) => RepositoryListModel(),
       child: Consumer<RepositoryListModel>(
           builder: (_, model, ___) => _body(model)),
     );

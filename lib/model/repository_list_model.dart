@@ -6,7 +6,7 @@ import 'package:http/http.dart';
 import 'package:repository/api/github_api.dart';
 import 'package:repository/api/response/repositories.dart';
 
-class RepositoryListModel extends ChangeNotifier {
+class RepositoryListModel with ChangeNotifier, AutoDispose {
   // public
   int totalCount = 0;
   Map<int, ListDataDetail> listDataMap = <int, ListDataDetail>{};
@@ -24,11 +24,11 @@ class RepositoryListModel extends ChangeNotifier {
     search();
   }
 
-  RepositoryListModel(AutoDispose autoDispose) {
+  RepositoryListModel() {
     EventBusExt().on<RepositorySearchEvent>().listen((event) {
       _searchWord = event.data.searchWord;
       search();
-    }).addDispose(autoDispose);
+    }).addDispose(this);
 
     scrollController = ScrollController()
       ..addListener(() {
@@ -39,7 +39,7 @@ class RepositoryListModel extends ChangeNotifier {
           search();
         }
       })
-      ..addDispose(autoDispose);
+      ..addDispose(this);
   }
 
   void search() {
