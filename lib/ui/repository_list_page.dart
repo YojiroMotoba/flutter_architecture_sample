@@ -17,46 +17,26 @@ class _RepositoryListPageState extends State<RepositoryListPage>
   @override
   bool get wantKeepAlive => true;
 
-  RepositoryListModel _model;
-
-  @override
-  void initState() {
-    super.initState();
-    debugPrint('$this initState');
-    _model = RepositoryListModel(this)..addDispose(this);
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    debugPrint('$this didChangeDependencies');
-  }
-
-  @override
-  void dispose() {
-    debugPrint('$this dispose');
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     super.build(context);
     debugPrint('$this build!!!!');
-    return ChangeNotifierProvider.value(
-      value: _model,
-      child: Consumer<RepositoryListModel>(builder: (_, __, ___) => _body()),
+    return Provider<RepositoryListModel>(
+      create: (_) => RepositoryListModel(this)..addDispose(this),
+      child: Consumer<RepositoryListModel>(
+          builder: (_, model, ___) => _body(model)),
     );
   }
 
-  Widget _body() {
+  Widget _body(RepositoryListModel model) {
     return ListView.builder(
-      controller: _model.scrollController,
+      controller: model.scrollController,
       itemBuilder: (BuildContext context, int index) {
         debugPrint(
-            'index=$index model.listDataMap.length=${_model.listDataMap.length}');
-        if (index < _model.listDataMap.length) {
+            'index=$index model.listDataMap.length=${model.listDataMap.length}');
+        if (index < model.listDataMap.length) {
           return _repositoryItem(
-              _model.listDataMap.entries.elementAt(index).value);
+              model.listDataMap.entries.elementAt(index).value);
         }
         return null;
       },

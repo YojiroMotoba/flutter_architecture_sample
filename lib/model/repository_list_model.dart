@@ -42,12 +42,6 @@ class RepositoryListModel extends ChangeNotifier {
       ..addDispose(autoDispose);
   }
 
-  @override
-  void dispose() {
-    debugPrint('$this is disposed');
-    super.dispose();
-  }
-
   void search() {
     if (_isLoading) {
       return;
