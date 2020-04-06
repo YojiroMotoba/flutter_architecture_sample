@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterarchitecturesample/ext/auto_dispose.dart';
 import 'package:flutterarchitecturesample/ext/sized_box_ext.dart';
 import 'package:flutterarchitecturesample/model/repository_list_model.dart';
 import 'package:provider/provider.dart';
@@ -12,7 +13,7 @@ class RepositoryListPage extends StatefulWidget {
 // NOTE: StatefulWidgetである必要ないけど、AutomaticKeepAliveClientMixinがStatefulWidgetじゃないとなので…
 // StatelessだとwantKeepAliveがtrueと同等の実装が分からず…
 class _RepositoryListPageState extends State<RepositoryListPage>
-    with AutomaticKeepAliveClientMixin<RepositoryListPage> {
+    with AutomaticKeepAliveClientMixin<RepositoryListPage>, AutoDispose {
   @override
   bool get wantKeepAlive => true;
 
@@ -36,7 +37,6 @@ class _RepositoryListPageState extends State<RepositoryListPage>
   @override
   void dispose() {
     debugPrint('$this dispose');
-    _scrollController.dispose();
     super.dispose();
   }
 
@@ -66,7 +66,7 @@ class _RepositoryListPageState extends State<RepositoryListPage>
   }
 
   void _initScrollController() {
-    _scrollController = ScrollController();
+    _scrollController = ScrollController()..addDispose(this);
     _scrollController.addListener(() {
       final maxScrollExtent = _scrollController.position.maxScrollExtent;
       final currentPosition = _scrollController.position.pixels;
