@@ -31,7 +31,6 @@ class RepositoryListModel extends ChangeNotifier {
     }).addDispose(autoDispose);
 
     scrollController = ScrollController()
-
       ..addListener(() {
         final maxScrollExtent = scrollController.position.maxScrollExtent;
         final currentPosition = scrollController.position.pixels;
