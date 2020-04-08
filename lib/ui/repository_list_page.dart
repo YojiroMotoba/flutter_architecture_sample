@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterarchitecturesample/ext/sized_box_ext.dart';
 import 'package:flutterarchitecturesample/model/repository_list_model.dart';
+import 'package:flutterarchitecturesample/ui/repository_detail_page.dart';
 import 'package:provider/provider.dart';
 
 class RepositoryListPage extends StatefulWidget {
@@ -64,7 +65,13 @@ class _RepositoryListPageState extends State<RepositoryListPage>
             ),
           ],
         ),
-        onTap: () => model.onTapListItem(listDataDetail),
+        onTap: () {
+          model.onTapListItem(listDataDetail);
+          Navigator.pushNamed(context, RepositoryDetailPage.pageName,
+              arguments: RepositoryDetailPageArguments(
+                listDataDetail,
+              ));
+        },
       ),
     );
   }
