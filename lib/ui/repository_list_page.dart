@@ -35,14 +35,15 @@ class _RepositoryListPageState extends State<RepositoryListPage>
             'index=$index model.listDataMap.length=${model.listDataMap.length}');
         if (index < model.listDataMap.length) {
           return _repositoryItem(
-              model.listDataMap.entries.elementAt(index).value);
+              model, model.listDataMap.entries.elementAt(index).value);
         }
         return null;
       },
     );
   }
 
-  Widget _repositoryItem(ListDataDetail listDataDetail) {
+  Widget _repositoryItem(
+      RepositoryListModel model, ListDataDetail listDataDetail) {
     return Container(
       decoration: _listDivider(),
       child: ListTile(
@@ -63,9 +64,7 @@ class _RepositoryListPageState extends State<RepositoryListPage>
             ),
           ],
         ),
-        onTap: () {
-          debugPrint('onTap called.${listDataDetail.fullName}');
-        },
+        onTap: () => model.onTapListItem(listDataDetail),
       ),
     );
   }

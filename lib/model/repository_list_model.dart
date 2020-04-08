@@ -54,6 +54,10 @@ class RepositoryListModel with ChangeNotifier, AutoDispose {
         .whenComplete(() => _searchComplete());
   }
 
+  void onTapListItem(ListDataDetail listDataDetail) {
+    debugPrint('onTap called.${listDataDetail.fullName}');
+  }
+
   void _searchOnValue(Response response) {
     // TODO statusCodeによるハンドリングを共通化する
     debugPrint('value.statusCode=${response.statusCode}');
