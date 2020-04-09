@@ -9,7 +9,7 @@ import 'package:repository/api/response/repositories.dart';
 class RepositoryListModel with ChangeNotifier, AutoDispose {
   // public
   int totalCount = 0;
-  Map<int, ListDataDetail> listDataMap = <int, ListDataDetail>{};
+  Map<int, dynamic> listDataMap = <int, dynamic>{};
 
   String get searchWord => _searchWord;
 
@@ -19,15 +19,10 @@ class RepositoryListModel with ChangeNotifier, AutoDispose {
   ScrollController scrollController;
   String _searchWord = '';
 
-  set searchWord(String searchWord) {
-    _searchWord = searchWord;
-    search();
-  }
-
   RepositoryListModel() {
     EventBusExt().on<RepositorySearchEvent>().listen((event) {
       _searchWord = event.data.searchWord;
-      search();
+      search(0);
     }).addDispose(this);
 
     scrollController = ScrollController()
@@ -36,19 +31,23 @@ class RepositoryListModel with ChangeNotifier, AutoDispose {
         final currentPosition = scrollController.position.pixels;
         if (maxScrollExtent > 0 &&
             (maxScrollExtent - 20.0) <= currentPosition) {
-          search();
+          search(_page);
         }
       })
       ..addDispose(this);
   }
 
-  void search() {
+  void search(int page) {
     if (_isLoading) {
       return;
     }
     _isLoading = true;
+    if (page > 0) {
+      listDataMap.putIfAbsent(-1, () => ListDataLoading());
+      notifyListeners();
+    }
     GithubApi()
-        .searchRepositories(_searchWord, _page)
+        .searchRepositories(_searchWord, page)
         .then((response) => _searchOnValue(response))
         .catchError((Object error) => _searchError(error))
         .whenComplete(() => _searchComplete());
@@ -87,6 +86,7 @@ class RepositoryListModel with ChangeNotifier, AutoDispose {
 
   void _searchComplete() {
     debugPrint('_searchComplete');
+    listDataMap.remove(-1);
     notifyListeners();
     _isLoading = false;
   }
@@ -97,3 +97,5 @@ class ListDataDetail {
   String avatarUrl;
   String htmlUrl;
 }
+
+class ListDataLoading {}

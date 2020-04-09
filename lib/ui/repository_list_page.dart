@@ -35,8 +35,13 @@ class _RepositoryListPageState extends State<RepositoryListPage>
         debugPrint(
             'index=$index model.listDataMap.length=${model.listDataMap.length}');
         if (index < model.listDataMap.length) {
-          return _repositoryItem(
-              model, model.listDataMap.entries.elementAt(index).value);
+          dynamic listItemData =
+              model.listDataMap.entries.elementAt(index).value;
+          if (listItemData is ListDataDetail) {
+            return _repositoryItem(model, listItemData);
+          } else if (listItemData is ListDataLoading) {
+            return Text('now loading');
+          }
         }
         return null;
       },
