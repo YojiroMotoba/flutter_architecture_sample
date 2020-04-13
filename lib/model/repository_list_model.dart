@@ -37,7 +37,7 @@ class RepositoryListModel with ChangeNotifier, AutoDispose {
       ..addDispose(this);
   }
 
-  void search(int page) {
+  Future<void> search(int page) async {
     if (_isLoading) {
       return;
     }
@@ -46,11 +46,16 @@ class RepositoryListModel with ChangeNotifier, AutoDispose {
       listDataMap.putIfAbsent(-1, () => ListDataLoading());
       notifyListeners();
     }
-    GithubApi()
-        .searchRepositories(_searchWord, page)
-        .then((response) => _searchOnValue(response))
-        .catchError((Object error) => _searchError(error))
-        .whenComplete(() => _searchComplete());
+
+    try {
+      final response = await GithubApi().searchRepositories(_searchWord, page);
+      _searchOnValue(response);
+    } catch (e, stackTrace) {
+      debugPrint(stackTrace.toString());
+      _searchError(e);
+    } finally {
+      _searchComplete();
+    }
   }
 
   void onTapListItem(ListDataDetail listDataDetail) {
