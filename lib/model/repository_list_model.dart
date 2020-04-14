@@ -51,7 +51,6 @@ class RepositoryListModel with ChangeNotifier, AutoDispose {
       final response = await GithubApi().searchRepositories(_searchWord, page);
       _searchOnValue(response);
     } catch (e, stackTrace) {
-      debugPrint(stackTrace.toString());
       _searchError(e);
     } finally {
       _searchComplete();
