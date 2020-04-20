@@ -43,13 +43,13 @@ class RepositoryListModel with ChangeNotifier, AutoDispose {
     }
     _isLoading = true;
     if (page > 0) {
-      listDataMap.putIfAbsent(-1, () => ListDataLoading());
+      listDataMap[-1] = ListDataLoading();
       notifyListeners();
     }
 
     try {
       final response = await GithubApi().searchRepositories(_searchWord, page);
-      _searchOnValue(response);
+      _searchOnValue(response, page);
     } catch (e, stackTrace) {
       _searchError(e);
     } finally {
@@ -61,19 +61,20 @@ class RepositoryListModel with ChangeNotifier, AutoDispose {
     debugPrint('onTap called.${listDataDetail.fullName}');
   }
 
-  void _searchOnValue(Response response) {
+  void _searchOnValue(Response response, int page) {
     // TODO statusCodeによるハンドリングを共通化する
     debugPrint('value.statusCode=${response.statusCode}');
     debugPrint(response.body);
     final repositories = Repositories.fromJson(response.body);
-    listDataMap ??= <int, ListDataDetail>{};
+    if (listDataMap == null || page == 0) {
+      listDataMap = <int, dynamic>{};
+    }
     debugPrint('repositories.total_count=${repositories.total_count}');
     totalCount = repositories.total_count;
     for (var item in repositories.items) {
-      listDataMap.putIfAbsent(
-          item.id, () => _convertResponseToListEntity(item));
+      listDataMap[item.id] = _convertResponseToListEntity(item);
     }
-    _page += 1;
+    _page = (page += 1);
   }
 
   ListDataDetail _convertResponseToListEntity(Item item) {

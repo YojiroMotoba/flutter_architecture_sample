@@ -29,21 +29,26 @@ class _RepositoryListPageState extends State<RepositoryListPage>
   }
 
   Widget _body(RepositoryListModel model) {
-    return ListView.builder(
-      controller: model.scrollController,
-      itemBuilder: (BuildContext context, int index) {
-        debugPrint(
-            'index=$index model.listDataMap.length=${model.listDataMap.length}');
-        if (index < model.listDataMap.length) {
-          dynamic listItemData =
-              model.listDataMap.entries.elementAt(index).value;
-          if (listItemData is ListDataDetail) {
-            return _repositoryItem(model, listItemData);
-          } else if (listItemData is ListDataLoading) {
-            return Text('now loading');
+    return RefreshIndicator(
+      child: ListView.builder(
+        controller: model.scrollController,
+        itemBuilder: (BuildContext context, int index) {
+          debugPrint(
+              'index=$index model.listDataMap.length=${model.listDataMap.length}');
+          if (index < model.listDataMap.length) {
+            dynamic listItemData =
+                model.listDataMap.entries.elementAt(index).value;
+            if (listItemData is ListDataDetail) {
+              return _repositoryItem(model, listItemData);
+            } else if (listItemData is ListDataLoading) {
+              return Text('now loading');
+            }
           }
-        }
-        return null;
+          return null;
+        },
+      ),
+      onRefresh: () {
+        return model.search(0);
       },
     );
   }
