@@ -33,13 +33,15 @@ mixin AutoDispose on ChangeNotifier {
 }
 
 extension AutoDisposeChangeNotifier on ChangeNotifier {
-  void addDispose(AutoDispose autoDispose) {
+  ChangeNotifier addDispose(AutoDispose autoDispose) {
     autoDispose.addDisposer(this);
+    return this;
   }
 }
 
 extension AutoCancelStreamSubscription on StreamSubscription {
-  void addDispose(AutoDispose autoDispose) {
+  StreamSubscription addDispose(AutoDispose autoDispose) {
     autoDispose.addStreamSubscription(this);
+    return this;
   }
 }
