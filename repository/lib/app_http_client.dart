@@ -1,9 +1,8 @@
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
-import 'package:http/io_client.dart';
 import 'package:repository/constant/const_api.dart';
 
-class AppHttpClient extends IOClient {
+class AppHttpClient extends http.BaseClient {
   static final http.Client _client = http.Client();
 
   final String userAgent;
@@ -11,7 +10,7 @@ class AppHttpClient extends IOClient {
   AppHttpClient(this.userAgent);
 
   @override
-  Future<StreamedResponse> send(BaseRequest request) {
+  Future<http.StreamedResponse> send(BaseRequest request) {
     request.headers['user-agent'] = userAgent;
     return _client.send(request);
   }
